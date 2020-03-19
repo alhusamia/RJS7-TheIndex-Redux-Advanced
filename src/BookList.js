@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 // Components
 import SearchBar from "./SearchBar";
@@ -36,4 +37,9 @@ class BookList extends Component {
   }
 }
 
-export default BookList;
+const mapStateProps = state => {
+  return {
+    books: state.booksState.books
+  };
+};
+export default connect(mapStateProps)(BookList);

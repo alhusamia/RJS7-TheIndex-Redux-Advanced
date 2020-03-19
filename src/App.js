@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect, withRouter } from "react-router-dom"; // Import
 import {connect} from "react-redux";
 
 // Components
@@ -20,15 +20,11 @@ class App extends Component {
         <Switch>
           <Redirect exact from="/" to="/authors" />
           <Route path="/authors/:authorID" component={AuthorDetail} />
-          <Route
-            path="/authors/"
-            render={props => (
-              <AuthorsList {...props} authors={this.props.authors} />
-            )}
-          />
+          <Route path="/authors/" component={AuthorsList} />
+          
           <Route
             path="/books/:bookColor?"
-            render={props => <BookList {...props} books={this.props.books} />}
+            component={BookList}/>}
           />
         </Switch>
       );
@@ -51,9 +47,8 @@ class App extends Component {
 
 const mapStateToProps = state =>{
   return{
-    loading:state.loading,
-    authors:state.authors,
-    books:state.books
+    loading:state.authorsState.loading ||state.booksState.loading
+   
   }
 }
-export default connect(mapStateToProps) (App);
+export default withRouter(connect(mapStateToProps)(App));

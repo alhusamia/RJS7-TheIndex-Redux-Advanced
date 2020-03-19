@@ -1,7 +1,7 @@
 import { SET_BOOKS } from "../actions/actionTypes"
 
 const initialState = {
-    books = [],
+    books :[],
     loading: true
 }
 
@@ -11,8 +11,10 @@ export default (state = initialState, action) =>{
             return{
                 ...state,
                 books:action.payload,
+                loading:false
             }
-    }
-}
+       default:
+            return state;
+}}
     
  
